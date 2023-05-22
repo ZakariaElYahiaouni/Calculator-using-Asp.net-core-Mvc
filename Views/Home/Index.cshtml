@@ -1,0 +1,201 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    #risultato{
+        background-color: white;
+        border: none;
+        font-size: 20px;
+    }
+
+    table tr td {
+        padding: 5px;
+
+    }
+
+    .container {
+        width: 300px;
+        height: 300px;
+        position: relative;
+        margin: auto;
+    }
+    button{
+        background-color : white; 
+    
+        
+    }
+    .btn{
+        padding: 20px;
+        cursor: pointer;
+        transition: 100ms;
+        border-radius: 20%;
+        border-color: orange;  
+        font-weight: bold; 
+
+    }
+    .btn:hover{
+        background-color: black;
+        color: white; 
+    }
+    #container-risultato{
+
+        height: 20px;
+
+    }
+
+</style>
+
+<body>
+    <div class="container">
+        <h1 style="font-size: 1.5em; text-align: center;">  Online Calculator</h1>
+        <br>
+        <div id="container-risultato"><button id="risultato">0</button></div>
+
+        <table>
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td><button class="btn" onclick="azzera()">C</button></td>
+                <td><button class="btn" onclick="somma()">+</button></td>
+                <td><button class="btn" onclick="sottrazione()">-</button></td>
+                <td><button  class="btn"onclick="divisione()">/</button></td>
+
+            </tr>
+            <tr>
+                <td><button class="btn" onclick="aggiungiCifra('7')">7</button></td>
+                <td><button class="btn" onclick="aggiungiCifra('8')">8</button></td>
+                <td><button  class="btn"onclick="aggiungiCifra('9')">9</button></td>
+                <td><button class="btn"onclick="moltiplicazione()">*</button></td>
+            </tr>
+            <tr>
+                <td><button class="btn"onclick="aggiungiCifra('4')">4</button></td>
+                <td><button class="btn"onclick="aggiungiCifra('5')">5</button></td>
+                <td><button class="btn"onclick="aggiungiCifra('6')">6</button></td>
+                <td><button class="btn" onclick="togliCifra()"><</button>
+                </td>
+            </tr>
+            <tr>
+                <td><button class="btn"onclick="aggiungiCifra('1')">1</button></td>
+                <td><button class="btn"onclick="aggiungiCifra('2')">2</button></td>
+                <td><button class="btn"onclick="aggiungiCifra('3')">3</button></td>
+                <td><button class="btn"onclick="OttieniRisultato()">=</button></td>
+            </tr>
+            <tr>
+
+            <td><button class="btn" onclick="aggiungiCifra('0')">0</button></td>
+                <td><button class="btn" onclick="mettiVirgola()">.</button></td>
+
+            </tr>
+
+        </table>
+    </div>
+
+
+    <script>
+        let risultato = (document.getElementById("risultato").value);
+        let flagAddizione, flagMoltiplicazione, flagDivizione, flagSottrazione; 
+        let operazione; 
+        let numeroOperazione; 
+        let calcoloSomma; 
+        function aggiungiCifra(cifra) {
+            risultato += cifra;
+            document.getElementById("risultato").innerHTML = risultato;
+
+        }
+        function togliCifra(){
+            
+            let subString = risultato.substring(0, risultato.length-1); 
+            risultato = subString;
+            document.getElementById("risultato").innerHTML = subString;
+        }
+        function azzera(){
+            risultato = "";
+            secondoNumero = 0;  
+            document.getElementById("risultato").innerHTML = risultato; 
+        }
+        function somma(){
+            numeroOperazione = parseFloat(document.getElementById("risultato").innerHTML); 
+            console.log(document.getElementById("risultato").innerHTML); 
+        
+            flagAddizione = true; 
+            risultato = document.getElementById("risultato").innerHTML = "";
+            
+            
+        }
+        function sottrazione(){
+            numeroOperazione = parseFloat(document.getElementById("risultato").innerHTML); 
+            console.log(document.getElementById("risultato").innerHTML); 
+        
+            flagSottrazione = true; 
+            risultato = document.getElementById("risultato").innerHTML = "";
+        }
+        function moltiplicazione(){
+            numeroOperazione = parseFloat(document.getElementById("risultato").innerHTML); 
+            console.log(document.getElementById("risultato").innerHTML); 
+        
+            flagMoltiplicazione = true; 
+            risultato = document.getElementById("risultato").innerHTML = "";
+        }
+        function divisione(){
+            numeroOperazione = parseFloat(document.getElementById("risultato").innerHTML); 
+            console.log(document.getElementById("risultato").innerHTML); 
+        
+            flagDivizione = true; 
+            risultato = document.getElementById("risultato").innerHTML = "";
+        }
+
+
+        function mettiVirgola() {
+            
+            
+            numeroEffettivo = risultato + "."; 
+            risultato = document.getElementById("risultato").innerHTML = numeroEffettivo; 
+        }
+
+
+
+        function OttieniRisultato(){
+            secondoNumero = parseFloat(document.getElementById("risultato").innerHTML); 
+            if(flagAddizione == true){
+                calcoloSomma = numeroOperazione + secondoNumero; 
+               risultato = document.getElementById("risultato").innerHTML = String(calcoloSomma);   
+               flagAddizione = false; 
+            }
+            if(flagMoltiplicazione == true){
+                calcoloMoltiplicazione = numeroOperazione * secondoNumero; 
+               risultato = document.getElementById("risultato").innerHTML = String(calcoloMoltiplicazione);  
+               flagMoltiplicazione = false;  
+            }
+            if(flagSottrazione == true){
+                calcoloSottrazione = numeroOperazione - secondoNumero; 
+               risultato = document.getElementById("risultato").innerHTML = String(calcoloSottrazione);  
+               flagSottrazione = false;  
+            }
+            if(flagDivizione == true){
+                calcoloDivizione = numeroOperazione / secondoNumero; 
+               risultato = document.getElementById("risultato").innerHTML = String(calcoloDivizione);  
+               flagDivizione = false;  
+            }
+        }
+
+
+
+    </script>
+</body>
+
+</html>
